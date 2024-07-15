@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+
+
+
+    let david = 'hello'
+
+    let function1 = function (number1 = 4, number2 = 5, theSymbol) {
+        if (theSymbol === 'multiply') {
+            console.log(number1 + number2);
+        } else {
+            console.log(number1 / number2);
+        }
+
+    }
+    let number1 = 67
+    let number2 = 6
+    function1(number1, number2, 'multiply')
+    function1(2, 23, 'divide')
+    function1(5, 0, 'subtract')
+    function1(200, 19, 'add')
+
+
+
+
+    function addNums() {
+        let sum = 20 + 45
+        if (sum === 100) {
+            return 'yes'
+        } else {
+            return 'no'
+        }
+    }
+
+
+    console.log(addNums());
+    let value = addNums()
+
+    if (value === 'yes') {
+        console.log('value is equal to 100');
+    } else {
+        console.log('value is greather or less than 100');
+    }
+
+
+    let myFunc = (params) => {
+        return function () {
+            return 'i am function 2'
+        }
+    }
+
+    function name(params) {
+
+    }
+
+    let func2 = (...arg) => {
+        console.log(arg);
+    }
+
+    function func3() {
+        console.log(arguments);
+    }
+
+    func3(2, 3, 4, 5, 6)
+
+    func2(2, 3, 4, 5)
+
+
+
+    console.log(myFunc()());
+
+    let myArr = [1, 2, 3, 4]
+    let fruitArr = ['apple', 'cherry', 'orange', 'watermelon', 'cashew']
+    let arrLength = fruitArr.length
+    console.log(arrLength);
+
+    let lastIndex = arrLength - 1
+
+    console.log(fruitArr[lastIndex]);
+
+    fruitArr[0] = 'banana'
+    console.log(fruitArr);
+
+
+    console.log(typeof fruitArr.join('+'));
+
+    let concatedArr = myArr.concat(fruitArr)
+    console.log(concatedArr);
+    console.log(fruitArr);
+    console.log(myArr)
+
+    let theIndex = fruitArr.indexOf('agbalumo')
+    console.log(theIndex);
+
+    // let myName = 'wisdom'
+
+    // myName[0] = 'y'
+    // console.log(myName);
+
+    console.log(Array.isArray(fruitArr));
+
+    const numbers = [1, 2, 3, 4, 5]
+    console.log(numbers.toString()) // 1,2,3,4,5
+
+
+
+    console.log(fruitArr.slice(2, 4));
+
+    fruitArr.splice(2, 3 , )
+    console.log(fruitArr);
+
+
+
+
+
+
+
+
+
+
+</script>

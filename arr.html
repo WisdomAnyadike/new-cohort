@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input id="input" type="text">
+    <button onclick="action('push')"> push </button>
+    <button onclick="action('pop')"> pop </button>
+
+    <!-- <button onclick="push()"> push </button>
+    <button onclick="pop()"> pop </button> -->
+
+</body>
+
+</html>
+<script>
+    let input = document.getElementById('input')
+    let arr = []
+    function action(params) {
+        if (params === 'push') {
+            arr.push(input.value)
+        } else {
+            arr.pop()
+        }
+        console.log(arr);
+    }
+
+    // function push() {
+    //     arr.push(input.value)
+    // }
+
+    // function pop() {
+    //     arr.pop()
+    // }
+
+    const ages = [19, 22, 19, 24, 20, 25]
+    ages.sort()
+    console.log(ages);
+
+
+    let minAge = Math.min(...ages)
+    let maxAge = Math.max(...ages)
+
+    if (ages.length % 2 === 1) {
+        let index = Math.floor([ages.length / 2])
+        let median = ages[index]
+        console.log(median);
+
+    } else {
+        let firstIndex = ages.length / 2
+        let secondIndex = firstIndex - 1
+        let median = (ages[firstIndex] + ages[secondIndex]) / 2
+        console.log(median);
+
+    }
+
+    let average = (ages[0] + ages[1] + ages[2] + ages[3] + ages[4] + ages[5]) / ages.length
+    console.log(average);
+
+    let range = maxAge - minAge
+    console.log(range);
+
+    let firstVal = minAge - average
+    let secondVal = maxAge - average
+    let absolute = Math.abs(firstVal - secondVal)
+    console.log(absolute);
+
+
+    for (let i = 0; i < 10; i++) {
+        console.log('hi');
+    }
+
+    for (let i = 20; i >= 0; i--) {
+        console.log(i);
+    }
+
+    for (let i = 1; i < 13; i++) {
+        console.log(`2 * ${i} = ${2 * i}`);
+    }
+
+    let arrString = ['hi ', 'my ', 'nam ', 'is', 'david']
+    let val = ''
+    for (let i = 0; i < arrString.length; i++) {
+        val = val + arrString[i]
+    }
+
+    console.log(val);
+
+    let i = 5
+    while (i > 0) {
+        console.log(i)
+        i--
+    }
+
+    let w = 6
+    do {
+        console.log(w)
+        w++
+    } while (w <= 5)
+
+    let nums = [1,2,3,4]
+
+    for (const num of nums) {
+      console.log(num);
+    }
+
+
+
+
+</script>

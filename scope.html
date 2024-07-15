@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+</body>
+
+</html>
+<script>
+    let value
+
+
+
+    function getName(params) {
+        let nam = 'anjola'
+        console.log(nam);
+        return 1
+
+    }
+
+    getName()
+
+    if (getName() === 1) {
+        value = 25
+    }
+
+    console.log(value);
+
+
+
+
+    let a = 'JavaScript'
+    let b = 10
+    function letsLearnScope() {
+        console.log(a, b)
+        if (true) {
+            let a = 'Python'
+            let b = 100
+            console.log(a, b)
+        }
+        console.log(a, b)
+    }
+
+    letsLearnScope()
+
+    console.log(a, b)
+
+    let davido = 'wow'
+
+    // function block() {
+    //     if ('hello') {
+    //         let a = 20
+    //         if (a == 20) {
+    //             let b = 5
+    //             console.log(c);
+    //             console.log(a);
+    //             if (b == 5) {
+    //                 let c = 15
+    //                 console.log(davido);
+    //                 console.log(b, a, c);
+    //             }
+    //         }
+
+    //     }
+
+    // }
+
+    // block()
+
+    let arr = new Array()
+    // let obj = new Object()
+    let obj = {
+        name1: 'victor',
+        name2: 'bosun',
+        nums: [1, 2, 3, 4, 5],
+        friends: {
+            class1: ['david', 'daniel'],
+            class2: { name: 'tolu', name3: 'tola' }
+        }
+    }
+
+    console.log(obj.nums[3]);
+    obj['name2']
+
+
+
+    console.log(obj.friends.class1[1]);
+
+    let myObj = {
+        name: 'shallom',
+
+        class: 'js',
+
+        sayName: function () {
+            console.log(`my name is ${this.name}`);
+        }
+
+
+    }
+
+
+    myObj.sayName = function () {
+        console.log(`i am jumping ${this.class}`);
+    }
+
+    myObj.class = 'wisdom'
+
+
+
+    // console.log(myObj.name);
+    myObj.sayName()
+    // myObj.jump()
+    // console.log(myObj.caller);
+    console.log(myObj);
+    const objCopy = Object.assign({}, myObj)
+
+    //     let arr1 = [1,2,3,4]
+    //     let arr2 = [1,2,3,4]
+    // if(arr1 == arr2){
+
+    // }
+
+    console.log(objCopy);
+    let objKeys = Object.entries(myObj)
+    console.log(objKeys);
+
+    // let arr2 = [1, 2, 3, 4]
+
+    // for (const num of arr2) {
+    //     console.log(num);
+    // }
+
+    for (const key in myObj) {
+        console.log(`key: ${key} , value: ${myObj[key]}`);
+    }
+
+    console.log(myObj.hasOwnProperty('sayName'));
+
+
+    const users = {
+        Alex: {
+            email: 'alex@alex.com',
+            skills: ['HTML', 'CSS', 'JavaScript'],
+            age: 20,
+            isLoggedIn: false,
+            points: 30
+        },
+        Asab: {
+            email: 'asab@asab.com',
+            skills: ['HTML', 'CSS', 'JavaScript', 'Redux', 'MongoDB', 'Express', 'React', 'Node'],
+            age: 25,
+            isLoggedIn: false,
+            points: 50
+        },
+        Brook: {
+            email: 'daniel@daniel.com',
+            skills: ['HTML', 'CSS', 'JavaScript', 'React', 'Redux'],
+            age: 30,
+            isLoggedIn: true,
+            points: 50
+        },
+        Daniel: {
+            email: 'daniel@alex.com',
+            skills: ['HTML', 'CSS', 'JavaScript', 'Python'],
+            age: 20,
+            isLoggedIn: false,
+            points: 40
+        },
+        John: {
+            email: 'john@john.com',
+            skills: ['HTML', 'CSS', 'JavaScript', 'React', 'Redux', 'Node.js'],
+            age: 20,
+            isLoggedIn: true,
+            points: 50
+        },
+        Thomas: {
+            email: 'thomas@thomas.com',
+            skills: ['HTML', 'CSS', 'JavaScript', 'React'],
+            age: 20,
+            isLoggedIn: false,
+            points: 40
+        },
+        Paul: {
+            email: 'paul@paul.com',
+            skills: ['HTML', 'CSS', 'JavaScript', 'MongoDB', 'Express', 'React', 'Node'],
+            age: 20,
+            isLoggedIn: false,
+            points: 40
+        }
+    }
+
+    let above50Users = []
+    let loggedInUsers = []
+    let above50Count = 0
+    let loggedInCount = 0
+    for (const key in users) {
+        if (users[key].isLoggedIn === true) {
+            loggedInCount++
+            loggedInUsers.push(key)
+        }
+        if (users[key].points >= 50) {
+            above50Count++
+            above50Users.push(key)
+        }
+
+    }
+
+    console.log(`loggedin users: ${loggedInCount} , (${loggedInUsers})`);
+
+    console.log(`above or equal 50 users: ${above50Count} , (${above50Users})`);
+
+
+</script>

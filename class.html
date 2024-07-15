@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<body>
+
+    <button onclick="dropDown()"> click me </button>
+
+    <div id="myDiv">
+
+    </div>
+
+    <input id="inp" type="text" value="5678">
+    <input id="input" type="text">
+    <img id="image" src="" alt="">
+
+
+    <p class="hi"></p>
+    <p id="ptag" class="hi"></p>
+
+</body>
+
+</html>
+<script>
+    let theName = 'bosun'
+    const myDreamCar = 'ferrari'
+
+
+    let inp = document.getElementById('inp')
+    let div = document.getElementById('myDiv')
+    let img = document.getElementById('image')
+    let input2 = document.getElementById('input')
+
+
+    let paragraphs = document.getElementsByClassName('hi')
+
+    paragraphs[0].style.backgroundColor = 'green'
+    paragraphs[0].style.height = '100px'
+
+    console.log(paragraphs);
+
+    let pTag = document.getElementsByClassName('hi')
+    console.log(pTag);
+
+    let dave = 'name'
+
+    inp.value = 'we love js'
+    input2.value = 'hello'
+    img.src = 'https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?auto=compress&cs=tinysrgb&w=600'
+    img.style.width = '200px'
+    img.style.height = '200px'
+
+    console.log(div);
+    div.style.height = '200px'
+    div.style.borderRadius = '20px'
+    div.style.backgroundColor = 'red'
+    div.style.display = 'none'
+
+    function dropDown() {
+        if (div.style.display === 'none') {
+            div.style.display = 'block'
+        } else {
+            div.style.display = 'none'
+        }
+
+    }
+
+    div.innerHTML = '<p> heyyyyy  </p>'
+
+    let htmlBody = document.body
+
+    htmlBody.style.backgroundColor = 'yellow'
+    htmlBody.style.height = '100vh'
+
+
+
+    console.log('hello world');
+
+    let studentsName = 'Bosun'
+
+
+
+    studentsName = 'david'
+
+    console.log(studentsName);
+
+    let gravity = 20.7899
+    gravity = 10
+    console.log(gravity);
+
+    let isLightOn = false
+
+    console.log(typeof isLightOn);
+    let className = null
+    let classes
+
+    console.log(className);
+    console.log(classes);
+
+
+    let classObj = {
+        name: 'bosun',
+        class: 'javascript',
+        age: 15,
+        stack: ['html', 'css', 'javascript', 89, true, undefined, null],
+        status: undefined,
+        eaten: true
+    }
+
+    let class1 = 'javascript'
+    console.log(class1[9]);
+    class1[9] = 'l'
+    console.log(class1);
+
+
+    let numOne = '3'
+    let numTwo = '3'
+
+    console.log(numOne === numTwo);
+
+    console.log(Math.PI);
+
+    // let mimimumNumber = Math.min(45, 5, -3, 56, 100)
+    console.log(Math.max(45, 5, -3, 56, 100));
+
+    let randomNum = Math.floor(Math.random() * 101)
+    console.log(randomNum);
+
+
+    let isRaining = false
+    let isHungry = false
+    let isMarried = true
+    let truValue = 4 > 3    // true
+    console.log(truValue);
+
+    let falseValue = 4 < 3  // false
+    console.log(falseValue);
+
+    let val1 = 4
+    val1 = val1 + 30
+    val1 /= 30
+    console.log(val1);
+
+    4 % 3
+    4 % 2
+
+    let val2 = 3 ** 2
+
+    val2 = val2 ** 2
+
+    let val3 = '81'
+
+
+    console.log(val3 < val2);
+
+    //  alert('hello class')
+
+
+    // let myPrompt = window.prompt('enter name', 'input name here')
+
+    // if (myPrompt.trim() === '') {
+    //     alert('you did not type in a value')
+    // } else {
+    //     alert(`hi ${myPrompt}`)
+    // }
+
+
+    // let confirmValue = confirm('are you sure?')
+
+
+
+    // if (one > two) {
+    //     alert(`${one} is the greather value`)
+    // } else if (one < two) {
+    //     alert(`${two} is the greather value`)
+    // } else {
+    //     alert(`${one} and ${two} are equal`)
+    // }
+
+    let one = 1
+    let two = 2
+
+
+    switch (true) {
+        case one > two:
+            alert(`${one} is the greather value`)
+            break;
+        case one < two:
+            alert(`${two} is the greather value`)
+
+            break;
+
+        default:
+            alert(`${one} and ${two} are equal`)
+            break;
+    }
+
+
+
+ one > two ? console.log('one is greather than two') : console.log('two is greather than one');
+
+
+</script>

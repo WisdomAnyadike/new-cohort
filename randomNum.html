@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <p id="num"> </p>
+    <button onclick="generateNum()"> generate </button>
+
+</body>
+
+</html>
+
+<script>
+
+    let paragraph = document.getElementById('num')
+    function generateNum() {
+        let number = Math.floor(Math.random() * 101)
+        paragraph.innerText = number
+    }
+
+
+    let name1 = "bosun's"
+    let name2 = 'david'
+    let name3 = ' victor'
+
+    console.log(name1 + name2 + name3);
+    console.log(`${name1} friend has money`);
+    console.log(name1 + " " + 'friend has money');
+
+
+    const p = "My name is Asabeneh Yetayeh.\n I live in Finland, Helsinki.I am a teacher and I love teaching.I teach HTML, CSS, JavaScript, React, Redux, Node.js, Python, Data Analysis and D3.js for anyone who is interested to learn.In the end of 2019, I was thinking to expand my teaching and to reach to global audience and I started a Python challenge from November 20 - December 19.It was one of the most rewarding and inspiring experience. Now, we are in 2020. I am enjoying preparing the 30DaysOfJavaScript challenge and I hope you are enjoying too."
+
+
+    console.log(p);
+
+    console.log(`The sum of 2 and 3 is 5`)              // statically writing the data
+    let a = '56'
+    let b = 43
+
+    console.log(`The sum of ${a} and ${b} is ${parseInt(a) + b}`);
+    let myString = "The sum of " + a + " and " + b + " is " + (parseInt(a) + b)
+
+    console.log(myString.length);
+    myString = myString.toUpperCase()
+    console.log(myString);
+
+
+    let word = 'javascript'
+
+
+    console.log(word.substr(4, 6));
+    console.log(word.slice(4 , 10 ));
+
+
+    let string = '30+Days+Of+JavaScript'
+
+    console.log(string.split('+'));
+    
+    console.log(word.toUpperCase().toLowerCase().split('').slice(4, 10));
+
+   string = string.replaceAll('+' , ' ').replace('Days' , "Months")
+   console.log(string);
+
+   console.log(string.charAt(17));
+   console.log(string.charCodeAt(14));
+   console.log(string.indexOf('Jay'));
+   
+   console.log(word.concat(string , ', hello from js' , 'hjdjcndk'));
+
+   console.log(string.match('Month'));
+   
+
+</script>
