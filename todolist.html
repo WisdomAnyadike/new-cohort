@@ -54,7 +54,7 @@
 <script>
     // "use strict"
     let index
-    let dataBase = []
+    let dataBase = JSON.parse(localStorage.getItem('todos')) || []
     // let count = 0
     function add() {
         if (input.value.trim() === '') {
@@ -67,6 +67,7 @@
             }
 
             dataBase.push(todoObj)
+            localStorage.setItem('todos', JSON.stringify(dataBase))
             display()
             console.log(dataBase);
 
@@ -74,13 +75,15 @@
 
     }
 
-    function display(params) {
+    function display() {
         tbody.innerHTML = ''
         for (let index = 0; index < dataBase.length; index++) {
             tbody.innerHTML += `<tr> <td>${index + 1}</td> <td> ${dataBase[index].todo} </td> <td> <button onclick="grabIndex(${index})"> edit </button> </td> 
-                <td> <button onclick="handleDelete()"> delete </button> </td></tr>  `
+                <td> <button id="deleter${index}" onclick="handleDelete(${index})"> delete </button> </td></tr>  `
         }
     }
+
+    display()
 
     function grabIndex(i) {
         index = i
@@ -89,9 +92,6 @@
         forAdd.style.display = 'none'
         forEdit.style.display = 'block'
     }
-    // grabIndex(2)
-    // grabIndex(5)
-    // grabIndex(9)
 
 
 
@@ -100,11 +100,57 @@
             todo: editInput.value
         }
         dataBase.splice(index, 1, todoObj)
+        localStorage.setItem('todos', JSON.stringify(dataBase))
         display()
         forAdd.style.display = 'block'
         forEdit.style.display = 'none'
         console.log(dataBase);
     }
+
+
+    function handleDelete(index) {
+        let element = document.getElementById(`deleter${index}`)
+        element.innerHTML = 'loading...'
+
+        setTimeout(function () {
+            dataBase.splice(index, 1)
+            localStorage.setItem('todos', JSON.stringify(dataBase))
+            display()
+        }, 3000)
+
+    }
+
+    // localStorage.setItem('todolist', JSON.stringify({ name: 'favour' }))
+
+    // console.log(JSON.parse(localStorage.getItem('todolist')));
+
+    // localStorage.removeItem('todolist')
+
+    // console.log(JSON.parse(localStorage.getItem('todolist')));
+
+
+
+
+
+
+
+
+    // function interval(params) {
+    //     let count = 0
+    //     let jumpInterval = setInterval(function () {
+    //         count++
+    //         console.log('im jumping');
+    //         if (count === 4) {
+    //             clearInterval(jumpInterval)
+    //         }
+    //     }, 3000)
+
+    // }
+
+    // interval()
+
+
+
 
 
 
