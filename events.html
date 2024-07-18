@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button onchange="jump()" value="5" draggable="true" class="hello" onclick="addVal(event)"> </button>
+
+    <button onmouseleave="doThisNext(event)" onmouseover="doThis(event)" value="20" draggable="true" class="hello"
+        onclick="addVal(event)"> </button>
+
+
+    <input onkeyup="tryThis(event)" type="text">
+
+    <select name="" id="select">
+        <option value=""> choose </option>
+        <option value="hello"> hey</option>
+        <option value="hi"> hello </option>
+        <option value="hey"> hi </option>
+    </select>
+
+
+</body>
+
+</html>
+<script>
+
+    function addVal(ev) {
+        if (ev.target.value == '5') {
+            ev.target.innerText = 'click'
+        } else {
+            ev.target.innerText = 'dont click'
+        }
+    }
+
+
+    function doThis(e) {
+        e.target.style.backgroundColor = 'yellow'
+    }
+
+    function doThisNext(e) {
+        e.target.style.backgroundColor = 'red'
+    }
+
+    function tryThis(e) {
+        console.log(e.target.value);
+    }
+
+    // function checkValue(e) {
+    //     console.log(e.target.value);
+    //     if (e.target.value == 'hello') {
+    //         alert('hello')
+    //     }
+    // }
+
+    let selectTag = document.getElementById("select")
+    selectTag.addEventListener('change', (ev) => {
+        console.log(ev.target.value);
+        if (ev.target.value == 'hello') {
+            alert('hello')
+        }
+    })
+
+</script>
