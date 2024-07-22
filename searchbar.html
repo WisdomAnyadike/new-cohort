@@ -5,10 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        #image {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
     <input type="text" oninput="searchProducts(event)">
+    <input type="file" onchange="chooseImg(event)" name="radio2">
+    <video src="" loop autoplay controls width="200px" height="200px" id="image" alt="">
+
+
+
     <div id="preview">
 
     </div>
@@ -25,7 +35,8 @@
     }
 
     function searchProducts(e) {
-        let input = e.target.value.toLowerCase()
+        let input = e.target.value.toLowerCase().split(' ').join('')
+        console.log(input);
 
         let filteredProducts = products.filter((product) => product.includes(input))
 
@@ -39,6 +50,21 @@
             }
 
         }
+    }
+
+    function chooseImg(e) {
+        let file = e.target.files[0]
+        let reader = new FileReader()
+        if (file) {
+            reader.readAsDataURL(file)
+        }
+
+        reader.addEventListener('load', (ev) => {
+            let url = ev.target.result
+            image.src = url
+            image.style.display = 'block'
+            console.log(url);
+        })
     }
 
     // function display(params) {
