@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        section {
+            margin: auto;
+            width: 500px;
+            height: 300px;
+            background-color: antiquewhite;
+            border: 1px solid red;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+
+        #circ {
+            height: 150px;
+            width: 150px;
+            background-color: brown;
+            border-radius: 100%;
+        }
+
+        main {
+            align-self: flex-end;
+        }
+
+        #name {
+            font-size: 20px;
+            font-style: italic;
+            font-weight: 200;
+            color: brown;
+        }
+
+        #world {
+            font-size: 20px;
+            font-style: italic;
+            font-weight: 200;
+            color: brown;
+        }
+
+        #sex {
+            font-size: 20px;
+            font-style: italic;
+            font-weight: 200;
+            color: brown;
+        }
+
+        #heigh {
+            font-size: 20px;
+            font-style: italic;
+            font-weight: 200;
+            color: brown;
+        }
+
+        #di {
+            margin-top: 35px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+
+        #next {
+            width: 100px;
+            height: 40px;
+            background-color: brown;
+            border-radius: 15px;
+        }
+
+        #previous {
+            width: 100px;
+            height: 40px;
+            background-color: brown;
+            border-radius: 15px;
+        }
+
+        #age {
+            font-size: 20px;
+            font-style: italic;
+            font-weight: 200;
+            color: brown;
+        }
+
+        #img {
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="section">
+
+
+    </section>
+
+    <div id="di">
+        <button id="previous" onclick="previous()">PREVIOUS</button>
+        <button id="next" onclick="next()">NEXT</button>
+    </div>
+
+</body>
+
+<script>
+    let information = [{
+        name: 'NAME: Hero Danjuma',
+        world: 'WORLD: Earthling',
+        sex: 'SEX: male',
+        height: 'HEIGHT: 5.8ft',
+        age: 'AGE: 27',
+        img: 'hero.jpg'
+    },
+    {
+        name: 'NAME: Marl Lyongo',
+        world: 'WORLD: Outworlder',
+        sex: 'SEX: Female',
+        height: 'HEIGHT: 15ft',
+        age: 'AGE: 327',
+        img: 'out1.png'
+    },
+    {
+        name: 'NAME: Muriel Binn',
+        world: 'WORLD: Outworlder',
+        sex: 'SEX: Male',
+        height: 'HEIGHT: 0.1cm',
+        age: 'AGE: 1000',
+        img: 'out2.png'
+    },
+    ];
+
+
+    let name = document.getElementById('name');
+    let world = document.getElementById('world');
+    let sex = document.getElementById('sex');
+    let heigh = document.getElementById('heigh');
+    let age = document.getElementById('age');
+    let img = document.getElementById('img');
+
+    let i = 0;
+    display()
+
+
+
+    function next() {
+        if (i === information.length - 1) {
+            i = 0
+            display()
+        } else {
+            i++
+            display()
+        }
+
+    }
+
+    function display() {
+        section.innerHTML = `<div id="circ">
+            <img src="${information[i].img}" alt="" id="img">
+        </div>
+        <main>
+            <dIv>
+                <P id="name">${information[i].name}</P >
+            </dIv >
+
+        <div>
+            <p id="world">${information[i].world}</p>
+            <p id="sex">${information[i].sex}</p>
+            <p id="heigh">${information[i].height}</p>
+            <p id="age">${information[i].age}</p>
+        </div>
+        </main >`
+    }
+
+
+
+    function previous() {
+        if (i == 0) {
+            i = information.length - 1
+            display()
+        } else {
+            i--;
+            display()
+
+        }
+
+
+
+    }
+
+
+</script>
+
+</html>
