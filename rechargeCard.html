@@ -10,26 +10,26 @@
 <body>
     <div>
         <select name="" id="provider">
-            <option value="choose provider"></option>
-            <option value="mtn"></option>
-            <option value="glo"></option>
-            <option value="9mobile"></option>
-            <option value="mtn"></option>
+            <option value="choose provider"> choose provider</option>
+            <option value="mtn"> mtn</option>
+            <option value="glo"> glo</option>
+            <option value="9mobile"> 9mobile</option>
+            <option value="airtel"> airtel </option>
         </select>
     </div>
 
     <div>
         <select name="" id="amount">
-            <option value="choose amount"></option>
-            <option value="100"></option>
-            <option value="200"></option>
-            <option value="500"></option>
-            <option value="1000"></option>
+            <option value="choose amount"> choose amount</option>
+            <option value="100"> 100</option>
+            <option value="200"> 200 </option>
+            <option value="500"> 500</option>
+            <option value="1000"> 1000 </option>
         </select>
     </div>
 
     <button onclick="generate()"> Generate </button>
-    <h1> pin: <span> </span></h1>
+    <h1> pin: <span id="span"> </span></h1>
 
 
     <div>
@@ -42,6 +42,35 @@
 
 </html>
 <script>
+    let database = []
+
+
+    function generate() {
+        if (provider.value === 'choose provider' || amount.value === 'choose amount') {
+            alert('you havent picked a provider')
+        } else {
+            let pin = ''
+            for (let index = 0; index < 10; index++) {
+                pin += Math.floor(Math.random() * 10)
+            }
+
+            document.getElementById('span').innerText = pin
+  
+            let obj = {
+                provider: provider.value,
+                amount: amount.value,
+                pin: pin,
+                isUsed: false,
+                dateCreated : new Date().toDateString(),
+                timeUsed: null
+            }
+
+            database.push(obj)
+            console.log(database);
+        }
+
+
+    }
 
 
 

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="time"> </p>
+
+
+</body>
+
+</html>
+<script>
+
+    let myDate = new Date()
+    let year = myDate.getFullYear()
+    console.log(myDate.toLocaleDateString());
+    console.log(year);
+    let hour = myDate.getHours()
+    console.log(hour);
+    let minutes = myDate.getMinutes()
+    console.log(minutes);
+
+    function formatTime(params) {
+        const date = new Date()
+        let year = date.getFullYear()
+        let month = date.getMonth() + 1
+        let day = date.getDate()
+        let hour = date.getHours()
+        let minutes = date.getMinutes()
+        let seconds = date.getSeconds()
+
+
+        function formatInFunc(params) {
+            // if (params < 10) {
+            //     params = `0${params}`
+            //     return params
+            // } else {
+            //     return params
+            // }
+            return params < 10 ? `0${params}` : params
+        }
+
+        let realDay = formatInFunc(day)
+        let realHour = formatInFunc(hour)
+        let realMinutes = formatInFunc(minutes)
+        let realMonth = formatInFunc(month)
+        let realSeconds = formatInFunc(seconds)
+
+        let amPm = hour < 12 ? 'am' : 'pm'
+
+
+
+
+
+        return `${year}-${realMonth}-${realDay} ${realHour}:${realMinutes}:${realSeconds}${amPm}`
+
+    }
+
+    setInterval(() => {
+        time.innerHTML = formatTime()
+    }, 1000)
+
+    let time = Date.now()
+    
+    console.log(time);
+    let actualTime = new Date(1721724859244)
+    actualTime = actualTime.toDateString()
+    console.log(actualTime);
+
+
+
+
+
+
+
+
+
+</script>
