@@ -253,7 +253,7 @@
                 let user = {
                     name: namee.value,
                     mail: mail.value,
-                    password: password.value ,
+                    password: hashPassword(password.value),
                     bio: bio.value,
                     job: job.value,
                     interest
@@ -275,7 +275,12 @@
     }
 
 
+    function hashPassword(params) {
+        return params.split('').reverse().join('')     
+    }
 
+    // let nums = [1,2,3,4,5]
+    // nums.reverse()
 
 
 

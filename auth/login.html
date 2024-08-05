@@ -1,11 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-     login 
+    <div>
+        <label for="email"> Email</label>
+        <input type="text" id="email">
+
+    </div>
+
+    <div>
+        <label for="password"> Password</label>
+        <input type="text" id="password">
+
+    </div>
+
+    <button id="logButton" onclick="login()"> Login </button>
 </body>
+
 </html>
+<script>
+
+    let database = JSON.parse(localStorage.getItem('jobDataBase'))
+    function login() {
+        if (password.value.trim() === '' || email.value.trim() === "") {
+            return alert('All inputs are mandatory')
+        }
+        const user = database.find((user) => user.mail === email.value)
+        if (!user) {
+            alert('Try signing up')
+        }
+        else if (unhashedPassword(user.password) !== password.value) {
+            alert('Wrong Password, click forgot password')
+        } else {
+            logButton.innerHTML = 'Loading...'
+
+            let userIndex = database.findIndex((data) => data.mail === user.mail)
+            localStorage.setItem('loggedUserIndex', userIndex)
+            console.log(userIndex);
+
+            setTimeout(() => {
+                alert('login successful')
+                window.location.href = 'dashboard.html'
+            }, 3000);
+        }
+
+    }
+
+    function unhashedPassword(params) {
+        return params.split('').reverse().join('')
+    }
+
+    console.log(unhashedPassword('divad'));
+
+</script>
