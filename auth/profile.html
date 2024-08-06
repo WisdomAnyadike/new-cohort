@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #timid {
+            display: flex;
+            flex-direction: column;
+            /* gap: 5px; */
+            justify-content: center;
+            padding: 10px;
+            margin: auto;
+            width: 350px;
+            height: 450px;
+            background-color: rgb(223, 214, 214);
+            align-items: center;
+        }
+
+        #img {
+            width: 100px;
+            height: 100px;
+            border-radius: 100%;
+        }
+
+        p {
+            font-size: larger;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="timid">
+
+    </div>
+
+</body>
+
+</html>
+<SCript>
+    let database = JSON.parse(localStorage.getItem('jobDataBase'))
+    let userIndex = localStorage.getItem('loggedUserIndex')
+    let user = database[userIndex].name
+    let body = document.getElementById('timid')
+
+
+    body.innerHTML = `<img>
+    <p>Welcome to your profile page ${user} </p>
+    <label for="image" > select a profile image from your files </label>
+    <input type="file" accept=".png" onchange="selection(event)" id="profPic">
+    <img src ="" id ="img">
+    <p>Email: ${database[userIndex].mail}</p>
+    <p>Bio: ${database[userIndex].bio}</p>
+    <p>Job: ${database[userIndex].job}</p>
+    <p>Interest: ${database[userIndex].interest}</p>`
+
+    let image = database[userIndex].profilePic
+
+    function selection(i) {
+        let myImag = i.target.files[0]
+        const reader = new FileReader()
+
+        if (myImag) {
+            reader.readAsDataURL(myImag)
+        }
+
+        reader.addEventListener('load', (e) => {
+            let url = e.target.result
+            image = url
+            database[userIndex].profilePic = image
+            localStorage.setItem('jobDataBase', JSON.stringify(database))
+            display()
+
+        })
+    }
+
+    function display() {
+        image === undefined ? img.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6LXNJFTmLzCoExghcATlCWG85kI8dsnhJng&s' : img.src = image
+    }
+
+
+    display()
+</SCript>

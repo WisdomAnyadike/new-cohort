@@ -5,6 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .div4 {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            width: 200px;
+            border: 1px solid black;
+            padding: 2px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        #button {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -16,7 +32,11 @@
 
     <div>
         <label for="password"> Password</label>
-        <input type="text" id="password">
+        <div class="div4">
+            <input id="input" oninput="bringButton()" style="border: none; outline: none;" type="password">
+            <button id="button" onclick="change()"> show </button>
+        </div>
+
 
     </div>
 
@@ -28,14 +48,15 @@
 
     let database = JSON.parse(localStorage.getItem('jobDataBase'))
     function login() {
-        if (password.value.trim() === '' || email.value.trim() === "") {
+
+        if (input.value.trim() === '' || email.value.trim() === "") {
             return alert('All inputs are mandatory')
         }
         const user = database.find((user) => user.mail === email.value)
         if (!user) {
             alert('Try signing up')
         }
-        else if (unhashedPassword(user.password) !== password.value) {
+        else if (unhashedPassword(user.password) !== input.value) {
             alert('Wrong Password, click forgot password')
         } else {
             logButton.innerHTML = 'Loading...'
@@ -57,5 +78,19 @@
     }
 
     console.log(unhashedPassword('divad'));
+
+
+    function change() {
+        input.type === 'password' ? input.type = 'text' : input.type = 'password'
+        input.type === 'password' ? button.textContent = 'show' : button.textContent = 'hide'
+    }
+
+    function bringButton() {
+        if (input.value.trim() === '') {
+            button.style.display = 'none'
+            return
+        }
+        button.style.display = 'block'
+    }
 
 </script>
