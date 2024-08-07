@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    let numbers = [1, 2, 3, 4, 5, 6]
+
+    let [one, two, three, four, five, six] = numbers
+    console.log(three);
+
+    const fullStack = [
+        ['HTML', 'CSS', 'JS', 'React'],
+        ['Node', 'Express', 'MongoDB']
+    ]
+    const [frontEnd, backEnd] = fullStack
+    let [firstTopic, secondTopic, thirdTopic, forthTopic] = frontEnd
+    let [firstLanguage, secondLanguage, thirdLanguage] = backEnd
+    console.log(frontEnd);
+    console.log(backEnd);
+
+    const names = [undefined, 'Brook', 'David']
+    let [
+        firstPerson = 'Asabeneh',
+        secondPerson,
+        thirdPerson,
+        fourthPerson = 'John'
+    ] = names
+
+    console.log(firstPerson, secondPerson, thirdPerson, fourthPerson)
+    console.log(names)
+
+    let numbers1 = [1, 2, 3, 4, 5, 6, 7]
+    let [num1, num2, ...newArr] = numbers1
+    console.log(newArr);
+    const namesCopy = [...names]
+    Math.min(...numbers1)
+
+
+    const countries = [['Finland', 'Helsinki'], ['Sweden', 'Stockholm'], ['Norway', 'Oslo']]
+
+    for (const [country, city] of countries) {
+        console.log(country);
+        console.log(city);
+    }
+
+
+    const rectangle = {
+        width: 20,
+        height: 10,
+        area: 200
+    }
+
+    rectangle.perimeter = 40
+    let { width: W, height: H, area: A, perimeter: P } = rectangle
+    console.log(W, H, A, P);
+    console.log(rectangle);
+
+
+
+    const rect = {
+        width: 20,
+        height: 10,
+        jump: function () {
+            console.log('im jumping');
+        }
+    }
+    const calculatePerimeter = (rectangle) => {
+        return 2 * (rectangle.width + rectangle.height)
+    }
+
+    console.log(calculatePerimeter(rect)) // 60
+    //with destructuring
+
+    const calculatePerimeter2 = ({ width, jump }) => {
+        return jump()
+    }
+    calculatePerimeter2(rect)
+
+
+
+    const todoList = [
+        {
+            task: 'Prepare JS Test',
+            time: '4/1/2020 8:30',
+            completed: true
+        },
+        {
+            task: 'Give JS Test',
+            time: '4/1/2020 10:00',
+            completed: false
+        },
+        {
+            task: 'Assess Test Result',
+            time: '4/1/2020 1:00',
+            completed: false
+        }
+    ]
+
+    for (const { completed, task, time } of todoList) {
+        console.log(completed, task, time)
+    }
+
+
+    let obj1 = {
+        task: 'Assess Test Result',
+        time: '4/1/2020 1:00',
+        completed: false
+    }
+
+    let obj1Copy = { ...obj1, task: 'runnn', completed: true }
+    console.log(obj1Copy);
+
+
+    function addNums() {
+        console.log(arguments);
+        let sum = 0
+        for (let index = 0; index < arguments.length; index++) {
+            sum += arguments[index]
+        }
+
+        return sum
+    }
+
+    console.log(addNums(2, 3, 4, 5));
+
+    let sumNums = (...vals) => {
+        console.log(vals);
+        let sum = 0
+        for (let index = 0; index < vals.length; index++) {
+            sum += vals[index]
+        }
+
+        return sum
+    }
+
+    console.log(sumNums(2, 3, 4, 5));
+
+
+
+</script>
