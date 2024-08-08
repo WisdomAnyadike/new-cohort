@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="api.css">
+
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+
+
+
+    // fetch('https://dummyjson.com/products').then((res) => console.log(res.json())).then((data) => console.log(data)).catch((err) => console.log(err))
+
+
+    const fetchApi = async () => {
+        try {
+            const res = await fetch('https://dummyjson.com/products')
+            const data = await res.json()
+            let dataArr = data.products
+            console.log(dataArr);
+            document.body.innerHTML = ''
+            dataArr.forEach(({ title, description, images }, index) => {
+                document.body.innerHTML += `  <div class="card-hover">
+    <div class="card-hover__content">
+      <h3 class="card-hover__title">
+        ${title}
+      </h3>
+      <p class="card-hover__text">${description}</p>
+       <button onclick="seemore(${index + 1})"> SEE MORE </button>
+      <a href="#" class="card-hover__link">
+        <span> click here </span>
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+        </svg>        
+      </a>
+    </div>
+    <div class="card-hover__extra">
+      <h4>Learn <span>now</span> and get <span>40%</span> discount!</h4>
+    </div>
+    <img  src="${images[0]}" alt="">
+  </div>`
+            });
+
+
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+    fetchApi()
+
+
+    async function seemore(i) {
+        try {
+            const res = await fetch(`https://dummyjson.com/products/${i}`)
+            const data = await res.json()
+            console.log(data);
+            document.body.innerHTML = ''
+            document.body.innerHTML = ` 
+            <button onclick="fetchApi()"> go back </button>
+             <p>${data.title} </p>
+             <p>${data.rating} </p>
+             <p>${data.brand} </p>
+             <p>${data.availabilityStatus} </p>
+             <p>${data.description} </p>
+             <img width="200" height="200" src='${data.images[0]}' />
+            `
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
+
+
+
+
+
+</script>
