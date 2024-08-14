@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table,
+        th,
+        td,
+        thead,
+        tbody,
+        tr {
+            border-collapse: collapse;
+            padding: 10px;
+            border: 1px solid green;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <label for="todo"> todo </label>
+        <input type="text" id="todo">
+    </div>
+    <div>
+        <label for="content"> content </label>
+        <input type="text" id="content">
+    </div>
+    <button style="margin-bottom: 20px;" onclick="postTodo()"> post todo </button>
+
+    <table>
+        <thead>
+            <th> s/n </th>
+            <th> todo </th>
+            <th> content</th>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+
+    </table>
+
+
+    <div>
+        <label for="edittodo"> edittodo </label>
+        <input type="text" id="edittodo">
+    </div>
+    <div>
+        <label for="editcontent"> editcontent </label>
+        <input type="text" id="editcontent">
+    </div>
+    <button style="margin-bottom: 20px;" onclick="editTodo()">edit todo </button>
+
+
+</body>
+
+</html>
+<script>
+    let currentId
+    function postTodo() {
+        fetch('http://localhost:3000/todos', {
+            'method': 'POST',
+            'Content-type': 'application/json',
+            'body': JSON.stringify({ todo: todo.value, content: content.value })
+        }).then((res) => res.json()).then((data) =>
+
+            alert(`data sent successfully`)
+
+
+        ).catch((err) => alert(err))
+
+    }
+
+    function display() {
+        fetch('http://localhost:3000/todos').then((res) => res.json()).then((data) => {
+            data.forEach(({ id, todo, content }, index) => {
+                tbody.innerHTML += ` <tr> <td>${index + 1} </td> <td> ${todo} </td> <td>${content} </td> <td> <button onclick="showEditIndex('${id}')"> edit </button> </td> <td> <button > delete </button> </td>  </tr>`
+            });
+
+
+        }).catch((err) => console.log(err))
+    }
+
+    display()
+
+    function showEditIndex(id) {
+        currentId = id
+        console.log(id);
+        fetch(`http://localhost:3000/todos/${id}`).then((res) => res.json()).then((data) => {
+            edittodo.value = data.todo
+            editcontent.value = data.content
+        }).catch((err) => console.log(err))
+    }
+
+    function editTodo() {
+        fetch(`http://localhost:3000/todos/${currentId}`, {
+            'method': 'PUT',
+            'Content-type': 'application/json',
+            'body': JSON.stringify({ todo: edittodo.value, content: editcontent.value })
+        }).then((res) => res.json()).then((data) =>
+            alert(`data edited successfully `)
+        ).catch((err) => alert(err))
+        
+    }
+
+
+</script>
