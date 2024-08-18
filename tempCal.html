@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" oninput="convertCelsiusToFahrenheit(event)">
+    <p> </p>
+
+</body>
+
+</html>
+<script>
+    // Temperature in oC can be converted to oF using this formula: oF = (oC x 9/5) + 32.
+    // Write a function which convert oC to oF convertCelsiusToFahrenheit.
+
+    function convertCelsiusToFahrenheit(e) {
+        console.log(e);
+        if (isNaN(e.target.value) || e.target.value.trim() === '') {
+            e.target.nextElementSibling.innerText = 'input a number'
+            return
+        }
+        const oF = (e.target.value * 9 / 5) + 32
+        e.target.nextElementSibling.innerText = oF
+    }
+
+    // function Student(name, classname, age) {
+    //     this.name = name
+    //     this.classname = classname
+    //     this.age = age
+
+    //     this.tellMeAboutYourself = function () {
+    //         return `my name is ${this.name} from ${this.classname} , i am ${this.age} years old `
+    //     }
+
+    // }
+
+    // let firstStudent = new Student('prince', 'js3', '12')
+    // console.log(firstStudent.name);
+    // console.log(firstStudent.tellMeAboutYourself());
+
+    // let secStudent = new Student('david', 'ss3', '18')
+    // console.log(secStudent.name);
+    // console.log(secStudent.tellMeAboutYourself());
+
+    class Student {
+        constructor(name, classname, age) {
+            this.name = name
+            this.classname = classname
+            this.age = age
+        }
+
+        get tellMeAboutYourself() {
+            return `my name is ${this.name} from ${this.classname} , i am ${this.age} years old `
+        }
+
+        set changesInStudent({ classname, age }) {
+            this.classname = classname
+            this.age = age
+        }
+    }
+
+    let firstStudent = new Student('prince', 'js3', '12')
+    console.log(firstStudent.name);
+    console.log(firstStudent.tellMeAboutYourself);
+
+    firstStudent.changesInStudent = { classname: 'ss2', age: '19' }
+    console.log(firstStudent.tellMeAboutYourself);
+
+    class MastersStudents extends Student {
+        constructor(name, classname, age, bsc, laugh) {
+            super(name, classname, age)
+            this.laugh = laugh
+            this.bsc = bsc
+        }
+        cook() {
+            return ` i am ${this.name}, and i love to cook`
+        }
+
+        startLaughing() {
+            return `${this.laugh.split(' ').join('! ')}`
+        }
+    }
+
+    const thirdStudent = new MastersStudents('yinka', 'msc', '27', 'biology', 'he he he ')
+    const forthStudent = new MastersStudents('toyin', 'msc', '29', 'mathematics', 'ah ah ah aha ')
+    console.log(thirdStudent.tellMeAboutYourself);
+    console.log(thirdStudent.cook());
+    console.log(thirdStudent.startLaughing());
+    console.log(forthStudent.startLaughing())
+
+
+</script>

@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="api.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="api.css">
 
 </head>
 
@@ -18,18 +18,18 @@
 
 
 
-    // fetch('https://dummyjson.com/products').then((res) => console.log(res.json())).then((data) => console.log(data)).catch((err) => console.log(err))
+  // fetch('https://dummyjson.com/products').then((res) => console.log(res.json())).then((data) => console.log(data)).catch((err) => console.log(err))
 
 
-    const fetchApi = async () => {
-        try {
-            const res = await fetch('https://dummyjson.com/products')
-            const data = await res.json()
-            let dataArr = data.products
-            console.log(dataArr);
-            document.body.innerHTML = ''
-            dataArr.forEach(({ title, description, images }, index) => {
-                document.body.innerHTML += `  <div class="card-hover">
+  const fetchApi = async () => {
+    try {
+      const res = await fetch('https://dummyjson.com/products')
+      const data = await res.json()
+      let dataArr = data.products
+      console.log(dataArr);
+      document.body.innerHTML = ''
+      dataArr.forEach(({ title, description, images }, index) => {
+        document.body.innerHTML += `  <div class="card-hover">
     <div class="card-hover__content">
       <h3 class="card-hover__title">
         ${title}
@@ -48,38 +48,96 @@
     </div>
     <img  src="${images[0]}" alt="">
   </div>`
-            });
+      });
 
 
-        } catch (error) {
-            console.log(error);
-        }
-
+    } catch (error) {
+      console.log(error);
     }
 
-    fetchApi()
+  }
+
+  fetchApi()
 
 
-    async function seemore(i) {
-        try {
-            const res = await fetch(`https://dummyjson.com/products/${i}`)
-            const data = await res.json()
-            console.log(data);
-            document.body.innerHTML = ''
-            document.body.innerHTML = ` 
-            <button onclick="fetchApi()"> go back </button>
+  async function seemore(i) {
+
+    try {
+      const res = await fetch(`https://dummyjson.com/products/${i}`)
+      const data = await res.json()
+       display(i , data)
+ 
+    } catch (err) {
+      console.log(err)
+    }
+
+  }
+
+
+  function display(index , data) {
+    document.body.innerHTML = ''
+      document.body.innerHTML = ` 
+            <main> <button onclick="fetchApi()"> go back </button> </main>
+            
              <p>${data.title} </p>
              <p>${data.rating} </p>
              <p>${data.brand} </p>
              <p>${data.availabilityStatus} </p>
              <p>${data.description} </p>
              <img width="200" height="200" src='${data.images[0]}' />
-            `
-        } catch (err) {
-            console.log(err)
-        }
 
-    }
+             <main> <button onclick="next('${index}')"> next </button> </main>
+             
+             <main>  <button onclick="prev('${index}')"> previous </button> </main>
+            `
+  }
+
+function next(i) {
+   if (i == 30){
+      i = 1
+      seemore(i)
+   }else {
+    i++ 
+    seemore(i)
+   }
+}
+
+function prev(i) {
+   if (i == 1){
+      i = 30
+      seemore(i)
+   }else {
+    i--
+    seemore(i)
+   }
+}
+
+
+
+  // async function next(index) {
+  //   index++
+  //   try {
+  //     const res = await fetch(`https://dummyjson.com/products/${index}`)
+  //     const data = await res.json()
+  //     console.log(data);
+  //     document.body.innerHTML = ''
+  //     document.body.innerHTML = ` 
+  //           <main> <button onclick="fetchApi()"> go back </button> </main>
+            
+  //            <p>${data.title} </p>
+  //            <p>${data.rating} </p>
+  //            <p>${data.brand} </p>
+  //            <p>${data.availabilityStatus} </p>
+  //            <p>${data.description} </p>
+  //            <img width="200" height="200" src='${data.images[0]}' />
+
+  //            <button onclick="next('${index}')" > next </button> <button onclick="previous('${index}')"> previous </button>
+  //           `
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+
+  // }
 
 
 

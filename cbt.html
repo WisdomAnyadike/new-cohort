@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="section">
+
+
+    </div>
+
+</body>
+
+</html>
+<script>
+    let questions = [{
+        question: 'what is my name?',
+        options: ['wisdom', 'david', 'tola', 'shola'],
+        answer: 'wisdom'
+    },
+    {
+        question: 'what your best language?',
+        options: ['python', 'java', 'javascript', 'c++'],
+        answer: 'javascript'
+    },
+    {
+        question: 'what is my age?',
+        options: ['12', '13', '14', '15'],
+        answer: '15'
+    },
+    {
+        question: 'what is my hobby?',
+        options: ['running', 'coding', 'swimming', 'videogaming'],
+        answer: 'videogaming'
+    }
+
+    ]
+
+
+
+    let i = 0;
+    let score = []
+    display(`<button onclick="next()"> next </button>`)
+
+
+
+    function next() {
+        if (i === questions.length - 2) {
+            i++
+            display(`<button onclick="submit()"> submit </button>`)
+
+        } else {
+            i++
+            display(`<button onclick="next()"> next </button>`)
+        }
+
+    }
+
+
+    function previous() {
+        if (i == 0) {
+            i = questions.length - 1
+            score.pop()
+            display(`<button onclick="submit()"> submit </button>`)
+        } else {
+            i--;
+            display(`<button onclick="next()"> next </button>`)
+
+        }
+
+
+
+    }
+
+    function display(params = '') {
+        section.innerHTML = ` <h1> ${questions[i].question} </h1> 
+         <p> ${questions[i].options[0]}  <input onchange="checkAnswer(event, ${i})" type="radio" value=${questions[i].options[0]} name="options${i}" /> </p>
+         <p> ${questions[i].options[1]}  <input onchange="checkAnswer(event , ${i})" type="radio" value=${questions[i].options[1]} name="options${i}" /> </p>
+         <p> ${questions[i].options[2]}  <input onchange="checkAnswer(event ,  ${i})" type="radio" value=${questions[i].options[2]} name="options${i}" /> </p>
+         <p> ${questions[i].options[3]}  <input onchange="checkAnswer(event , ${i} )" type="radio" value=${questions[i].options[3]} name="options${i}" /> </p>
+
+         <button onclick="previous()"> prev </button>    ${params}
+        
+         
+        
+        `
+    }
+
+    function checkAnswer(e, index) {
+        console.log(e.target.value);
+        console.log(questions[index].answer);
+        if (e.target.value === questions[index].answer) {
+            score.splice(index, 1, 1)
+            console.log(score);
+        } else {
+            score.splice(index, 1, 0)
+            console.log(score);
+        }
+    }
+
+    function submit() {
+        const confirmSubmit = confirm('are you sure?')
+        if (!confirmSubmit) {
+            return
+        }
+
+     section.innerHTML = score.reduce((a, b) => a + b, 0) !== questions.length ? `you scored ${score.reduce((a, b) => a + b, 0)} / ${questions.length} ` : `you scored ${score.reduce((a, b) => a + b, 0)} / ${questions.length} , perfect score! `
+    }
+
+
+
+
+
+
+
+</script>
