@@ -65,17 +65,7 @@
     try {
       const res = await fetch(`https://dummyjson.com/products/${i}`)
       const data = await res.json()
-       display(i , data)
- 
-    } catch (err) {
-      console.log(err)
-    }
-
-  }
-
-
-  function display(index , data) {
-    document.body.innerHTML = ''
+      document.body.innerHTML = ''
       document.body.innerHTML = ` 
             <main> <button onclick="fetchApi()"> go back </button> </main>
             
@@ -86,11 +76,22 @@
              <p>${data.description} </p>
              <img width="200" height="200" src='${data.images[0]}' />
 
-             <main> <button onclick="next('${index}')"> next </button> </main>
+             <main> <button onclick="next('${i}')"> next </button> </main>
              
-             <main>  <button onclick="prev('${index}')"> previous </button> </main>
+             <main>  <button onclick="prev('${i}')"> previous </button> </main>
             `
+ 
+    } catch (err) {
+      console.log(err)
+    }
+
   }
+
+
+  // function display(index , data) {
+   
+
+  // }
 
 function next(i) {
    if (i == 30){

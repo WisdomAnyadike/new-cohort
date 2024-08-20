@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="https://www.gstatic.com/firebasejs/10.13/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13/firebase-auth-compat.js"></script>
+</head>
+
+<body>
+    <div class="vid-container">
+        <div class="inner-container">
+            <div class="box">
+                <h1>Login</h1>
+                <input type="text" placeholder="email" id="email" />
+                <input type="text" placeholder="Password" id="password" />
+                <button id="loginButton" onclick="login()">Login</button>
+                <p> not a member? <a href="index.html">Sign Up </a></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDAwtKMXv0QADdDaB2K6a0pH3M5nqWN7eQ",
+        authDomain: "teachingfirebase-2ce92.firebaseapp.com",
+        projectId: "teachingfirebase-2ce92",
+        storageBucket: "teachingfirebase-2ce92.appspot.com",
+        messagingSenderId: "286840801735",
+        appId: "1:286840801735:web:29a5adcaeb3d477478f1e2"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth()
+
+
+    function login() {
+
+        loginButton.innerHTML = `<div class="spinner-border text-light" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>`
+
+        let email = document.getElementById('email')
+        let password = document.getElementById('password')
+
+
+        if (email.value.trim() === '' || password.value.trim() === '') {
+            alert('all fields are mandatory')
+            loginButton.innerHTML = 'Login'
+            return
+        }
+
+        firebase.auth().signInWithEmailAndPassword(email.value, password.value)
+            .then((userCredential) => {
+                // Signed in
+                var user = userCredential.user;
+                alert('login success')
+                window.location.href = 'dashboard.html'
+                loginButton.innerHTML = 'Login'
+                // ...
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                alert(errorMessage)
+                loginButton.innerHTML = 'Login'
+            });
+    }
+</script>
