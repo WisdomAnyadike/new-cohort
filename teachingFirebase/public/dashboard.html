@@ -1,11 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://www.gstatic.com/firebasejs/10.13/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13/firebase-firestore-compat.js"></script>
+
 </head>
+
 <body>
-     <p> dashboard </p>
+    <div style="width: 100%; background-color: bisque; height: 100px;">
+        Group Chats Dashboard <button onclick="profile()"> go to profile </button>    <button onclick="logout()">logout</button>  
+    </div>
+
+    <p id="welcome"> </p>
+
+    <div id="chats">
+
+    </div>
+
+    <div>
+        <input type="text" id="input"> <button onclick="sendMessage()"> send message </button>
+    </div>
+
+
+
 </body>
+
 </html>
+<script>
+    function profile() {
+        window.location.href = 'profile.html'
+    }
+    const firebaseConfig = {
+        apiKey: "AIzaSyDAwtKMXv0QADdDaB2K6a0pH3M5nqWN7eQ",
+        authDomain: "teachingfirebase-2ce92.firebaseapp.com",
+        projectId: "teachingfirebase-2ce92",
+        storageBucket: "teachingfirebase-2ce92.appspot.com",
+        messagingSenderId: "286840801735",
+        appId: "1:286840801735:web:29a5adcaeb3d477478f1e2"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth()
+    const db = firebase.firestore()
+    let currentUser
+
+
+
+
+
+    function checkUser() {
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/v8/firebase.User
+                var uid = user.uid;
+                currentUser = user.displayName
+                welcome.innerText = `welcome ${user.displayName}`
+                // ...
+            } else {
+                window.location.href = 'login.html'
+                // User is signed out
+                // ...
+            }
+        });
+
+    }
+
+    checkUser()
+
+    function sendMessage() {
+
+        if (input.value.trim()) {
+            // Add a new document in collection "Chats"
+            db.collection("Chats").doc().set({
+                sender: currentUser,
+                message: input.value.trim(),
+                time: new Date().toLocaleDateString()
+            })
+                .then(() => {
+                    alert("message sent successfully");
+                    input.value = ''
+                    displayAllMessages()
+                })
+                .catch((error) => {
+                    console.error("couldnt send message: ", error);
+                });
+        } else {
+            alert('input field is mandatory')
+        }
+    }
+
+
+    function displayAllMessages() {
+        db.collection("Chats").orderBy("time").get()
+            .then((querySnapshot) => {
+                chats.innerHTML = ''
+                querySnapshot.forEach((doc) => {
+                    let deleteButton = currentUser === doc.data().sender ? `<button onclick="editMssg('${doc.id}' , '${doc.data().message}')"> edit </button> <button onclick="deleteMssg('${doc.id}')"> delete </button> ` : ''
+                    chats.innerHTML += `
+                    <div>
+                    <p>${doc.data().sender}: ${doc.data().message} </p>
+                    <p> ${doc.data().time} ${deleteButton} </p>  
+                        </div>
+                  `
+                });
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
+
+    }
+
+    displayAllMessages()
+
+    function deleteMssg(id) {
+        db.collection("Chats").doc(id).delete().then(() => {
+            alert("message deleted succesfully");
+            displayAllMessages()
+        }).catch((error) => {
+            alert("Error deleting message:", error);
+        });
+    }
+
+
+    function editMssg(id, mssg) {
+        let promptValue = prompt('enter new value', `${mssg}`)
+        if (promptValue.trim()) {
+            db.collection("Chats").doc(id).update({
+                message: promptValue
+            })
+                .then(() => {
+                    alert("message edited successfully!");
+                    displayAllMessages()
+                })
+                .catch((error) => {
+                    alert("Error editing message: ", error);
+                });
+        } else {
+            alert('input a value')
+        }
+
+
+
+    }
+
+
+
+
+    function logout() {
+        firebase.auth().signOut().then(() => {
+            alert('Sign-out successful.')
+            window.location.href = 'login.html'
+        }).catch((error) => {
+            alert(error)
+        });
+    }
+</script>

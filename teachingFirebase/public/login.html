@@ -19,6 +19,7 @@
                 <input type="text" placeholder="Password" id="password" />
                 <button id="loginButton" onclick="login()">Login</button>
                 <p> not a member? <a href="index.html">Sign Up </a></p>
+                <a href="forgotPassword.html"> forgotPassword? </a>
             </div>
         </div>
     </div>
@@ -26,6 +27,8 @@
 
 </html>
 <script>
+
+
 
 
     const firebaseConfig = {
@@ -58,13 +61,37 @@
             return
         }
 
+
+
         firebase.auth().signInWithEmailAndPassword(email.value, password.value)
             .then((userCredential) => {
                 // Signed in
                 var user = userCredential.user;
-                alert('login success')
-                window.location.href = 'dashboard.html'
-                loginButton.innerHTML = 'Login'
+
+
+                firebase.auth().onAuthStateChanged((user) => {
+                    if (user) {
+                        if (user.emailVerified) {
+                            alert('login success')
+                            window.location.href = 'dashboard.html'
+                            loginButton.innerHTML = 'Login'
+                        } else {
+                            firebase.auth().currentUser.sendEmailVerification()
+                                .then(() => {
+                                    alert('email verification sent , please verify your mail')
+                                    loginButton.innerHTML = 'Login'
+                                });
+                        }
+                    } else {
+                        console.log('No user is signed in.');
+                        // Handle the case where no user is signed in
+                    }
+                });
+
+
+
+
+
                 // ...
             })
             .catch((error) => {
@@ -73,5 +100,8 @@
                 alert(errorMessage)
                 loginButton.innerHTML = 'Login'
             });
+
+
+
     }
 </script>

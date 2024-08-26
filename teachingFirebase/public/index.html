@@ -62,12 +62,12 @@
   <span class="visually-hidden">Loading...</span>
 </div>`
 
-    let username = document.getElementById('username')
-    let email = document.getElementById('email')
-    let password = document.getElementById('password')
 
+    let username = document.getElementById('username').value
+    let email = document.getElementById('email').value
+    let password = document.getElementById('password').value
 
-    if (username.value.trim() === '' || email.value.trim() === '' || password.value.trim() === '') {
+    if (username.trim() === '' || email.trim() === '' || password.trim() === '') {
       alert('all fields are mandatory')
       SignUpButton.innerHTML = 'Sign Up'
       return
@@ -75,21 +75,31 @@
 
 
 
-    firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
+
+
+    firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
 
         var user = userCredential.user;
 
+        firebase.auth().currentUser.sendEmailVerification()
+          .then(() => {
+            alert('email verification sent')
+          });
+
         user.updateProfile({
-          displayName: username.value,
+          displayName: username,
         }).then(() => {
           alert('sign up successful')
           window.location.href = 'login.html'
           SignUpButton.innerHTML = 'Sign Up'
+
         }).catch((error) => {
           alert("unable to update user's name")
           SignUpButton.innerHTML = 'Sign Up'
         });
+
+
 
       })
       .catch((error) => {
@@ -99,6 +109,11 @@
         SignUpButton.innerHTML = 'Sign Up'
 
       });
+
+
+
+
+
 
   }
 
@@ -130,6 +145,7 @@
         var email = error.email;
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
+        alert(errorMessage)
         SignGoogle.innerHTML = 'Sign in With Google'
         // ...
       });
