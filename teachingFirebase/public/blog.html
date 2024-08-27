@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://www.gstatic.com/firebasejs/10.13/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13/firebase-database-compat.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="realblog">
+        <h2> post a blog</h2>
+        <section class="mb-3">
+            <label for="title"> Blog title </label>
+            <input type="text" id="title">
+        </section>
+        <section class="d-flex align-items-start flex-column mb-3">
+            <label for="image"> Blog Image</label>
+            <input type="file" id="image"> <br>
+        </section>
+        <section>
+            <label for="description"> Blog Description</label>
+            <textarea type="text" id="description">
+
+            </textarea>
+        </section>
+        <button class="btn btn-success" onclick="postBlog()"> post </button>
+    </div>
+
+
+    <div id="preview">
+
+    </div>
+
+    <p id="progress" style="position: fixed; top: 0; right: 0;"> </p>
+
+</body>
+
+</html>
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyDAwtKMXv0QADdDaB2K6a0pH3M5nqWN7eQ",
+        authDomain: "teachingfirebase-2ce92.firebaseapp.com",
+        projectId: "teachingfirebase-2ce92",
+        storageBucket: "teachingfirebase-2ce92.appspot.com",
+        messagingSenderId: "286840801735",
+        databaseURL: 'https://teachingfirebase-2ce92-default-rtdb.firebaseio.com/',
+        appId: "1:286840801735:web:29a5adcaeb3d477478f1e2"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth()
+    var database = firebase.database();
+    var storage = firebase.storage();
+    let blogIndex
+
+    function checkUser() {
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                var uid = user.uid;
+            } else {
+                window.location.href = 'login.html'
+                // User is signed out
+                // ...
+            }
+        });
+
+    }
+
+    checkUser()
+
+    function postBlog() {
+        let file = image.files[0]
+        console.log(file);
+        var storageRef = storage.ref(`${file.name}`);
+        var uploadTask = storageRef.put(file);
+
+
+        uploadTask.on('state_changed', (snapShot) => {
+            progress.style.display = 'block'
+            progress.innerHTML = `post progress: ${((snapShot.bytesTransferred / snapShot.totalBytes) * 100).toFixed(2)}%`
+        }, (err) => {
+            alert(err)
+            progress.innerHTML = `error posting`
+            setTimeout(() => {
+                progress.style.display = 'none'
+            }, 3000)
+
+
+        }, () => {
+            progress.innerHTML = `Completed , Hurray!!`
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                firebase.database().ref(`blog/${blogIndex}`).set({
+                    blogOwner: auth.currentUser.displayName,
+                    blogTitle: title.value,
+                    blogDescription: description.value,
+                    blogImage: downloadURL,
+                    blogImageRef: file.name
+                }).then(() => { }).catch((err) => alert(err))
+
+            });
+            setTimeout(() => {
+                progress.style.display = 'none'
+            }, 3000)
+
+        })
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+    function displayBlogs() {
+        var blogsRef = firebase.database().ref('blog');
+        blogsRef.on('value', (snapshot) => {
+            const data = snapshot.val() || []
+            console.log(data);
+            blogIndex = data.length
+            preview.innerHTML = ''
+            data.forEach(({ blogOwner, blogDescription, blogTitle, blogImage }, i) => {
+                preview.innerHTML += ` <p > from: ${blogOwner} </p>
+                <p>description : ${blogDescription} </p>
+                <p>title :${blogTitle} </p>
+                <img width="100" height="100" src="${blogImage}" /> <button onclick="deletePost('${i}')"> delete </button>  `
+            });
+
+        });
+    }
+
+    displayBlogs()
+
+    function deletePost(i) {
+        let deleteAsk = confirm('are you sure?')
+        if (deleteAsk) {
+            firebase.database().ref(`blog/${i}`).remove().then(() => { }).catch((err) => alert(err))
+        }
+
+
+    }
+
+
+
+</script>
